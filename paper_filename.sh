@@ -1,8 +1,8 @@
 #!/bin/bash
 # File: paper_filename.sh
 
-# Define repository path
-REPO="/home/ra/repos/no-watermark"
+# Define repository path (path of this script)
+REPO=$(dirname "$(readlink -f "$0")")
 
 echo "Running script from $REPO"
 echo "Arguments: $@"
