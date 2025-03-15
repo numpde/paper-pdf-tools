@@ -1,0 +1,35 @@
+Construct the filename for a scientific paper PDF in the format:
+
+YYYY-Author1-Author2[-Author3] (Title).pdf
+
+Rule 1: Year
+- Extract the publication year (YYYY) as an integer.
+Example:
+  2024
+
+Rule 2: Authors
+- Extract full surnames for all authors.
+- Remove any dashes (e.g. "Smith-Jones" → "SmithJones") and apostrophes (e.g. "O'Neil" → "ONeil").
+- Return the full list of surnames as an array without truncation.
+Examples:
+  "Wang, Lee" → ["Wang", "Lee"]
+  "Smith, Johnson, Davis" → ["Smith", "Johnson", "Davis"]
+  "Wang, Gupta, Zhang, Tonekaboni, Jegelka, Jaakkola, Uhler" → ["Wang", "Gupta", "Zhang", "Tonekaboni", "Jegelka", "Jaakkola", "Uhler"]
+
+Rule 3: Title
+- Replace any colon (:) with " -- ".
+- Use natural capitalization: preserve acronyms and proper nouns exactly; for other words, only the first word is capitalized.
+Examples:
+  "AI in Drug Discovery" → "AI in drug discovery"
+  "ML: Trends" → "ML -- Trends"
+  "MolGPT molecular generation using a transformer-decoder model" → "MolGPT -- Molecular generation using a transformer-decoder model"
+
+Instructions:
+Call `tool_set_filename` with these parameters:
+- year: the extracted publication year (integer).
+- author_name_list: the full list of surnames as an array.
+- title: the processed title.
+Then call `tool_finished`. If the first page content does not provide enough clear information or appears corrupt, call `tool_finished` immediately without outputting a filename. Output nothing else.
+
+First page content:
+<PDFCONTENT>{first_page_text}</PDFCONTENT>
